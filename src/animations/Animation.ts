@@ -54,7 +54,7 @@ abstract class Animation {
     return false
   }
 
-  private finish() {
+  protected finish() {
     this.alive = false
     this.currentTime = 0
     this.position = this.initPos.copy()
