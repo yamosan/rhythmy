@@ -2,20 +2,16 @@ import p5 from 'p5'
 import Animation from './Animation'
 
 class Bubble extends Animation{
+  ballNum: number
   balls: p5.Vector[]
 
   constructor(p: p5, x: number, y: number) {
     super(p, x, y)
-    this.balls = []
+    this.ballNum = 14
+    this.balls = this.initializeBalls()
   }
 
   updateHook() {
-    if (this.currentTime === 1) {
-      this.balls = []
-      for (let i = 0; i < 14; i++) {
-        this.balls.push(this.p.createVector(this.p.random(-30, 30), this.p.random(-30, 30)))
-      }
-    }
   }
 
   displayHook() {
@@ -35,6 +31,14 @@ class Bubble extends Animation{
       }
       this.p.pop()
     })
+  }
+
+  private initializeBalls(): p5.Vector[] {
+    const balls = []
+    for (let i = 0; i < this.ballNum; i++) {
+      balls.push(this.p.createVector(this.p.random(-30, 30), this.p.random(-30, 30)))
+    }
+    return balls
   }
 }
 
