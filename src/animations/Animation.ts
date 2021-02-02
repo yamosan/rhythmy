@@ -7,8 +7,8 @@ abstract class Animation {
   alive: boolean
   currentTime: number
   finishTime: number
-  abstract display(): void
-  abstract updated(): void
+  abstract displayHook(): void
+  abstract updateHook(): void
 
   constructor(p: p5, x: number, y: number) {
     this.p = p
@@ -23,12 +23,20 @@ abstract class Animation {
     // 更新
     if (this.alive) {
       this.currentTime++
-      this.updated()
+      this.updateHook()
     }
     // 終了
     if (this.isFinished()) {
       this.finish()
     }
+  }
+  
+  display() {
+    this.p.push()
+    if (this.alive) {
+      this.displayHook()
+    }
+    this.p.pop()
   }
 
   play() {
