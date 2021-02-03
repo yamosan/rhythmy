@@ -1,7 +1,7 @@
 const path = require('path')
 module.exports = {
   entry: {
-    bundle: "./src/index.ts"
+    bundle: "./src/fe/index.ts"
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,6 +19,10 @@ module.exports = {
       {
         loader: 'ts-loader',
         test: /\.ts$/,
+        options: {
+          transpileOnly: true,
+          configFile: "tsconfig.front.json",
+        }
       },
     ],
   },
