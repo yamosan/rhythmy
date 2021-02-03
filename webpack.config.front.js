@@ -4,7 +4,7 @@ module.exports = {
     bundle: "./src/fe/index.ts"
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'public/javascripts'),
     filename: '[name].js',
   },
   resolve: {
