@@ -1,7 +1,8 @@
 const path = require('path')
 module.exports = {
   entry: {
-    bundle: "./src/fe/index.ts"
+    player: "./src/fe/player/index.ts",
+    monitor: "./src/fe/monitor/index.ts"
   },
   output: {
     path: path.join(__dirname, 'public/javascripts'),
