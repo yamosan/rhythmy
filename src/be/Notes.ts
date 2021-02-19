@@ -1,7 +1,7 @@
 export class Notes {
-  data: number[][]
-  nSteps: number
-  nTracks: number
+  readonly data: number[][]
+  readonly nSteps: number
+  readonly nTracks: number
   onChange: () => void
 
   constructor(nTracks: number, nSteps: number, onChange?: () => void) {
