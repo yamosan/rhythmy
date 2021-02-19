@@ -33,7 +33,7 @@ export class Notes {
   }
 
   private initializeData(): number[][] {
-    const data = []
+    const data: number[][] = []
     for (let i = 0; i < this.nTracks; i++){
       data.push([])
       for (let j = 0; j < this.nSteps; j++){
