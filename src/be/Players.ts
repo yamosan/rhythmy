@@ -10,12 +10,12 @@ export class Players {
   readonly limit: number
   randomChoice: boolean
 
-  constructor(limit: number, random?: boolean) {
+  constructor(limit: number, random=true) {
     this.limit = limit
     this.data = [
       new Player(3, 'default')
     ]
-    this.randomChoice = random ? random : true
+    this.randomChoice = random
   }
 
   setNewPlayer(socketId: string): boolean {
