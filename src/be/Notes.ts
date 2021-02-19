@@ -15,12 +15,16 @@ export class Notes {
     this.validateId(id)
     this.validateTrack(track)
     this.data[id] = track
+
+    this.onChange()
     return this.data
   }
 
   resetTrack(id: number): number[][] {
     this.validateId(id)
     this.data[id] = new Array(this.nSteps).fill(0)
+
+    this.onChange()
     return this.data
   }
 
