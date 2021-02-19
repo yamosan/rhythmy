@@ -37,6 +37,12 @@ export class Players {
     }
   }
 
+  deletePlayer(socketId: string): Player | never {
+    const player = this.findPlayer(socketId)
+    this.data.filter(p => p.socketId !== socketId)
+    return { ...player }
+  }
+
   private getNewId() {
     const ids = this.data.map(p => p.id)
     const range = [...Array(this.limit)].map((_,i) => i)
