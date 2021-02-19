@@ -11,7 +11,7 @@ export class Notes {
     this.observer = () => { }
   }
 
-  replaceTrack(id: number, track: number[]): number[][] {
+  replaceTrack(id: number, track: number[]): number[][] | never {
     this.validateId(id)
     this.validateTrack(track)
     this.data[id] = track
@@ -20,7 +20,7 @@ export class Notes {
     return this.data
   }
 
-  resetTrack(id: number): number[][] {
+  resetTrack(id: number): number[][] | never {
     this.validateId(id)
     this.data[id] = new Array(this.nSteps).fill(0)
 
