@@ -18,11 +18,11 @@ export class Players {
     this.randomChoice = random ? random : true
   }
 
-  setPlayer(socketId: string): boolean {
+  setNewPlayer(socketId: string): boolean {
     const id = this.getNewId()
     if (id === -1) return false
 
-    const player = { id: id, socketId: socketId }
+    const player = new Player(id, socketId)
     this.data.push(player)
     this.sort()
     return true
