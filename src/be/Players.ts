@@ -28,6 +28,15 @@ export class Players {
     return true
   }
 
+  findPlayer(socketId: string): Player | never {
+    const result = this.data.find(p => p.socketId === socketId)
+    if (result) {
+      return { ...result }
+    } else {
+      throw new Error(`Players(socketId: ${socketId}) is not found`)
+    }
+  }
+
   private getNewId() {
     const ids = this.data.map(p => p.id)
     const range = [...Array(this.limit)].map((_,i) => i)
