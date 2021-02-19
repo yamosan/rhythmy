@@ -11,11 +11,16 @@ export class Notes {
     this.onChange = onChange !== undefined ? onChange : () => { }
   }
 
-  replaceTrack(track: number[], id: number): number[][] {
+  replaceTrack(id: number, track: number[]): number[][] {
+    this.validateId(id)
+    this.validateTrack(track)
+    this.data[id] = track
     return this.data
   }
 
   resetTrack(id: number): number[][] {
+    this.validateId(id)
+    this.data[id] = new Array(this.nSteps).fill(0)
     return this.data
   }
 
@@ -28,5 +33,17 @@ export class Notes {
       }
     }
     return data
+  }
+
+  // TODO: デコレータ化する
+  private validateId(id: number): never | void {
+    if (!(0 <= id && id < this.nTracks)) throw new Error(`id must be between 0 and ${this.nTracks-1}`)
+  }
+
+  private validateTrack(track: any[]): never | void {
+    if (!(track.length === this.nSteps)) throw new Error(`track is invalid`)
+    track.forEach(step => {
+      if (!(step === 0 || step === 1)) throw new Error(`track is invalid`)
+    })
   }
 }
