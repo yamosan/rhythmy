@@ -9,6 +9,7 @@
     "sourceMap": true,
   },
   "include": [
-    "src/fe/**/*"
+    "src/fe/**/*",
+    "src/@types/**/*"
   ]
 }

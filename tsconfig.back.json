@@ -8,7 +8,8 @@
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src/be/**/*"
+    "src/be/**/*",
+    "src/@types/**/*"
   ],
   "files": [
     "app.ts"
