@@ -6,7 +6,7 @@
   "scripts": {
     "fe-build": "webpack --config webpack.config.front.js --mode production",
     "fe-dev": "webpack --watch --config webpack.config.front.js --mode development",
-    "start": "ts-node --project tsconfig.back.json app.ts"
+    "start": "ts-node --project tsconfig.back.json --files app.ts"
   },
   "keywords": [],
   "author": "",
