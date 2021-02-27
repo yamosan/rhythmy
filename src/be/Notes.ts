@@ -2,34 +2,38 @@ export class Notes {
   readonly data: number[][]
   readonly nSteps: number
   readonly nTracks: number
-  onChange: () => void
+  observer: () => void
 
-  constructor(nTracks: number, nSteps: number, onChange?: () => void) {
+  constructor(nTracks: number, nSteps: number) {
     this.nSteps = nSteps
     this.nTracks = nTracks
     this.data = this.initializeData()
-    this.onChange = onChange !== undefined ? onChange : () => { }
+    this.observer = () => { }
   }
 
-  replaceTrack(id: number, track: number[]): number[][] {
+  replaceTrack(id: number, track: number[]): number[][] | never {
     this.validateId(id)
     this.validateTrack(track)
     this.data[id] = track
 
-    this.onChange()
+    this.observer()
     return this.data
   }
 
-  resetTrack(id: number): number[][] {
+  resetTrack(id: number): number[][] | never {
     this.validateId(id)
     this.data[id] = new Array(this.nSteps).fill(0)
 
-    this.onChange()
+    this.observer()
     return this.data
   }
 
+  setObserver(onChange: () => void) {
+    this.observer = onChange
+  }
+
   private initializeData(): number[][] {
-    const data = []
+    const data: number[][] = []
     for (let i = 0; i < this.nTracks; i++){
       data.push([])
       for (let j = 0; j < this.nSteps; j++){
