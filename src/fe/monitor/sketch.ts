@@ -1,6 +1,7 @@
 import p5 from 'p5'
 import { Socket } from 'socket.io-client'
 import NotesUI from './NotesUI'
+import * as Tone from 'tone'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
@@ -22,6 +23,8 @@ function sketch(p: p5) {
   let currentStep = 0
   // UI
   let notesUI: NotesUI
+  // beat
+  let beats = 0
 
   function setupSize(w: number, h: number) {
     if (nSteps === 0 || nTracks === 0) return
@@ -36,10 +39,22 @@ function sketch(p: p5) {
     }
   }
 
+  function onBeat(time: number) {
+    for (let track = 0; track < nTracks; track++) {
+      if (store.cells[track][currentStep] == 1) {
+        // animations[track][currentStep].play(time)
+      }
+    }
+    beats++
+    currentStep = (beats) % nSteps
+  }
+
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight)
     p.colorMode(p.HSB, 255)
     p.strokeWeight(2)
+    Tone.Transport.bpm.value = 160
+    Tone.Transport.scheduleRepeat(onBeat, "8n")
   }
   
   p.draw = () => {
@@ -51,6 +66,7 @@ function sketch(p: p5) {
   }
 
   p.mousePressed = () => {
+    resumeContext()
     const [x, y] = notesUI.onClick(p.mouseX, p.mouseY)
     if (x !== -1 || y !== -1) {
       store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
@@ -60,6 +76,14 @@ function sketch(p: p5) {
   p.windowResized = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
   }
+}
+
+function resumeContext () {
+  // https://github.com/Tonejs/Tone.js/issues/341
+  if (Tone.context.state !== 'running') {
+    Tone.context.resume()
+  }
+  Tone.Transport.start()
 }
 
 function defineReceiver() {
