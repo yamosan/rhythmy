@@ -7,6 +7,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
+    "baseUrl": "./src"
   },
   "include": [
     "src/fe/**/*",
