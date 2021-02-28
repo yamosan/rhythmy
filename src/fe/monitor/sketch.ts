@@ -19,6 +19,7 @@ function sketch(p: p5) {
   let cellSize = 0
   let topMargin = 0
   let leftMargin = 0
+  let currentStep = 0
   // UI
   let notesUI: NotesUI
 
@@ -45,7 +46,7 @@ function sketch(p: p5) {
     setupSize(p.width, p.height)
     p.background(0)
 
-    notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize)
+    notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
     notesUI.display()
   }
 

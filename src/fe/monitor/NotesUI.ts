@@ -8,8 +8,9 @@ class NotesUI {
   ox: number
   oy: number
   cellSize: number
+  currentStep: number
 
-  constructor(p: p5, cells: number[][], ox: number, oy: number, cellSize: number) {
+  constructor(p: p5, cells: number[][], ox: number, oy: number, cellSize: number, currentStep: number) {
     this.p = p
     this.cells = cells
     this.column = cells===undefined ? 0 : cells.length
@@ -17,6 +18,7 @@ class NotesUI {
     this.ox = ox
     this.oy = oy
     this.cellSize = cellSize
+    this.currentStep = currentStep
   }
 
   onClick(mouseX: number, mouseY: number): [x: number, y: number] {
@@ -32,6 +34,14 @@ class NotesUI {
   }
 
   drawCell(x: number, y: number) {
+    // currentStep
+    if (x === this.currentStep) {
+      const color = this.cells[y][x] ? this.p.color(255, 100) : this.p.color(255, 10)
+      this.p.fill(color)
+      this.p.rect(0, 0, this.cellSize, this.cellSize)
+    }
+
+    // button
     const rectSize = 10
     const color = this.cells[y][x] ? this.p.color(255) : this.p.color(0)
     this.p.translate(this.cellSize / 2 - rectSize / 2, this.cellSize / 2 - rectSize / 2)
