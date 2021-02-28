@@ -22,8 +22,8 @@ class NotesUI {
   }
 
   onClick(mouseX: number, mouseY: number): [x: number, y: number] {
-    const xCondition = mouseX + this.ox < this.cellSize * this.row
-    const yCondition = mouseY + this.oy < this.cellSize * this.column
+    const xCondition = (this.ox < mouseX) && (mouseX < this.ox + this.cellSize * this.row)
+    const yCondition = (this.oy < mouseY) && (mouseY < this.oy + this.cellSize * this.column)
     if (xCondition && yCondition) {
       let x = this.p.floor((mouseX - this.ox) / this.cellSize)
       let y = this.p.floor((mouseY - this.oy) / this.cellSize)
