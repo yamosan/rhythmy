@@ -1,5 +1,6 @@
 import p5 from 'p5'
 import { Socket } from 'socket.io-client'
+import NotesUI from './NotesUI'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
@@ -15,9 +16,24 @@ let nSteps = 0
 
 function sketch(p: p5) {
   // cells
-  let cellSize = 60
+  let cellSize = 0
   let topMargin = 0
   let leftMargin = 0
+  // UI
+  let notesUI: NotesUI
+
+  function setupSize(w: number, h: number) {
+    if (nSteps === 0 || nTracks === 0) return
+    if (w / nSteps > h / nTracks) {
+      cellSize = h / nTracks
+      topMargin = 0
+      leftMargin = (w - cellSize * nSteps) / 2
+    } else {
+      cellSize = w / nSteps
+      topMargin = (h - cellSize * nTracks) / 2
+      leftMargin = 0
+    }
+  }
 
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight)
@@ -26,20 +42,22 @@ function sketch(p: p5) {
   }
   
   p.draw = () => {
+    setupSize(p.width, p.height)
     p.background(0)
-    p.fill(200)
-    for (let y = 0; y < nTracks; y++) {
-      for (let x = 0; x < nSteps; x++) {
-        // console.log(store.cells[y][x])
-        p.stroke(255)
-        const color = store.cells[y][x] === 0 ? p.color(0) : p.color(255)
-        p.fill(color)
-        p.push()
-        p.translate(cellSize/2-5, cellSize/2-5)
-        p.rect(cellSize + cellSize * x, cellSize + cellSize * y, 10, 10)
-        p.pop()
-      }
+
+    notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize)
+    notesUI.display()
+  }
+
+  p.mousePressed = () => {
+    const [x, y] = notesUI.onClick(p.mouseX, p.mouseY)
+    if (x !== -1 || y !== -1) {
+      store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
     }
+  }
+
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
   }
 }
 
