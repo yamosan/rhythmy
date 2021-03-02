@@ -1,5 +1,6 @@
 const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   entry: {
     player: "./src/fe/player/index.ts",
@@ -10,9 +11,14 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
-    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.front.json' })],
+    plugins: [
+      new TsconfigPathsPlugin({ configFile: './tsconfig.front.json' }),
+    ],
     extensions: ['.js', '.ts']
   },
+  plugins: [
+    new BundleAnalyzerPlugin(),
+  ],
   module: {
     rules: [
       {
@@ -32,5 +38,5 @@ module.exports = {
       },
     ],
   },
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
 }
