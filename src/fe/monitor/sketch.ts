@@ -1,8 +1,8 @@
 import p5 from 'p5'
 import * as Tone from 'tone'
 import { Socket } from 'socket.io-client'
-import NotesUI from './NotesUI'
-import AnimationsUI from './AnimationsUI'
+import NotesUI from '../NotesUI'
+import AnimationsUI from '../AnimationsUI'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
