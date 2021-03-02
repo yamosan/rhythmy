@@ -1,11 +1,12 @@
 import p5 from 'p5'
+import sound from 'sounds/f.mp3'
 import Animation from './Animation'
 
 let p: p5
 
 class Wave extends Animation {
   constructor(p: p5, x: number, y: number) {
-    super(p, x, y)
+    super(p, x, y, sound)
   }
 
   updateHook() {

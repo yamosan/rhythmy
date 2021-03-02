@@ -1,4 +1,7 @@
 import p5 from 'p5'
+import * as Tone from 'tone'
+
+type Sound = string | AudioBuffer | Tone.ToneAudioBuffer
 
 abstract class Animation {
   p: p5
@@ -7,16 +10,21 @@ abstract class Animation {
   alive: boolean
   currentTime: number
   finishTime: number
+  sound: Tone.Player
+  allowSound: boolean
   abstract displayHook(): void
   abstract updateHook(): void
 
-  constructor(p: p5, x: number, y: number) {
+  constructor(p: p5, x: number, y: number, sound?: Sound) {
     this.p = p
     this.initPos = p.createVector(x, y)
     this.position = this.initPos.copy()
     this.alive = false
     this.currentTime = 0
     this.finishTime = 150
+    // sound
+    if (sound) this.sound = new Tone.Player(sound).toDestination()
+    this.allowSound = true
   }
 
   update() {
@@ -40,11 +48,14 @@ abstract class Animation {
     this.p.pop()
   }
 
-  play() {
+  play(time?: number) {
     if (this.alive) {
       this.finish()
     }
     this.alive = true
+    if (time && this.sound && this.allowSound) {
+      this.sound.start(time)
+    }
   }
 
   private isFinished() {
