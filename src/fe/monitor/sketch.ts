@@ -3,6 +3,7 @@ import * as Tone from 'tone'
 import { Socket } from 'socket.io-client'
 import NotesUI from '../NotesUI'
 import AnimationsUI from '../AnimationsUI'
+import animations from '../animations'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
@@ -50,7 +51,7 @@ function sketch(p: p5) {
   }
 
   function setupUI() {
-    animUI = new AnimationsUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
+    animUI = new AnimationsUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep, animations)
     notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
   }
 
