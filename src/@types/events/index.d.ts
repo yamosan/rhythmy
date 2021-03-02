@@ -1,6 +1,7 @@
 declare namespace EventsRecord {
   // server -> client
   interface MonitorEventsFromServer {
+    start: (initialData: { notes: number[][] }) => void
     update: (data: { notes: number[][] }) => void
   }
 

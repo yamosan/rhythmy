@@ -1,4 +1,5 @@
 const path = require('path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = {
   entry: {
     player: "./src/fe/player/index.ts",
@@ -9,6 +10,7 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.front.json' })],
     extensions: ['.js', '.ts']
   },
   module: {
