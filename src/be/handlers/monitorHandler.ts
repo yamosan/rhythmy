@@ -15,7 +15,7 @@ const monitorHandler = (io: Server, data: data) => {
 
   nsp.on('connection', (sock: Sock) => {
     console.log(`monitor[${sock.id}] connected`)
-    nsp.emit('update', { notes: notes.data })
+    nsp.emit('start', { notes: notes.data })
     sock.on('disconnect', () => {
       console.log(`monitor[${sock.id}] disconnected`)
     })
