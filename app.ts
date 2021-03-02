@@ -5,6 +5,7 @@ import path from 'path'
 import { monitorHandler, playerHandler } from './src/be/handlers'
 import { Notes } from './src/be/Notes'
 import { Players } from './src/be/Players'
+import seed from './src/be/seed'
 
 const app = express()
 const http = createServer(app)
@@ -29,6 +30,7 @@ const data = {
   players: new Players(playerLimit),
   notes: new Notes(playerLimit, nSteps)
 }
+seed(data)
 monitorHandler(io, data)
 playerHandler(io, data)
 

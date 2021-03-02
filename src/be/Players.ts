@@ -1,4 +1,4 @@
-class Player {
+export class Player {
   constructor(
     public readonly id: number,
     public readonly socketId: string
@@ -10,12 +10,18 @@ export class Players {
   readonly limit: number
   randomChoice: boolean
 
-  constructor(limit: number, random=true) {
+  constructor(limit: number, random = true) {
     this.limit = limit
-    this.data = [
-      new Player(3, 'default')
-    ]
+    this.data = []
     this.randomChoice = random
+  }
+
+  setPlayer(player: Player): boolean {
+    const match = this.data.find(p => p.id === player.id || p.socketId === player.socketId)
+    if (match) return false
+    this.data.push(player)
+    this.sort()
+    return true
   }
 
   setNewPlayer(socketId: string): boolean {
