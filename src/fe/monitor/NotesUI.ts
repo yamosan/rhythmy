@@ -4,7 +4,7 @@ import Grid from './Grid'
 class NotesUI extends Grid {
   currentStep: number
 
-  constructor(p: p5, cells: number[][], ox: number, oy: number, cellSize: number, currentStep: number) {
+  constructor(p: p5, cells: binary[][], ox: number, oy: number, cellSize: number, currentStep: number) {
     super(p, cells, ox, oy, cellSize, currentStep)
   }
 

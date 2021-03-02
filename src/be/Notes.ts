@@ -1,5 +1,5 @@
 export class Notes {
-  readonly data: number[][]
+  readonly data: binary[][]
   readonly nSteps: number
   readonly nTracks: number
   observer: () => void
@@ -11,7 +11,7 @@ export class Notes {
     this.observer = () => { }
   }
 
-  replaceTrack(id: number, track: number[]): number[][] | never {
+  replaceTrack(id: number, track: binary[]): binary[][] | never {
     this.validateId(id)
     this.validateTrack(track)
     this.data[id] = track
@@ -20,7 +20,7 @@ export class Notes {
     return this.data
   }
 
-  resetTrack(id: number): number[][] | never {
+  resetTrack(id: number): binary[][] | never {
     this.validateId(id)
     this.data[id] = new Array(this.nSteps).fill(0)
 
@@ -32,8 +32,8 @@ export class Notes {
     this.observer = onChange
   }
 
-  private initializeData(): number[][] {
-    const data: number[][] = []
+  private initializeData(): binary[][] {
+    const data: binary[][] = []
     for (let i = 0; i < this.nTracks; i++){
       data.push([])
       for (let j = 0; j < this.nSteps; j++){
