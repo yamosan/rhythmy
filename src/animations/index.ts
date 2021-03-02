@@ -1,7 +1,19 @@
-export { default as Ripple } from './Ripple'
-export { default as Bubble } from './Bubble'
-export { default as Fireworks } from './Fireworks'
-export { default as TriRect } from './TriRect'
-export { default as RotRect } from './RotRect'
-export { default as RotTriangle } from './RotTriangle'
-export { default as Wave } from './Wave'
+import Ripple from './Ripple'
+import Bubble from './Bubble'
+import Fireworks from './Fireworks'
+import TriRect from './TriRect'
+import RotRect from './RotRect'
+import RotTriangle from './RotTriangle'
+import Wave from './Wave'
+
+export { default as Animation } from './Animation'
+
+export const Animations = [
+  TriRect,
+  Bubble,
+  Fireworks,
+  Ripple,
+  RotRect,
+  RotTriangle,
+  Wave,
+]
