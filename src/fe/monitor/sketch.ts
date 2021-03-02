@@ -1,7 +1,8 @@
 import p5 from 'p5'
+import * as Tone from 'tone'
 import { Socket } from 'socket.io-client'
 import NotesUI from './NotesUI'
-import * as Tone from 'tone'
+import AnimationsUI from './AnimationsUI'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
@@ -23,8 +24,17 @@ function sketch(p: p5) {
   let currentStep = 0
   // UI
   let notesUI: NotesUI
+  let animUI: AnimationsUI
   // beat
   let beats = 0
+
+  function windowObserver() {
+    if (window.innerWidth !== p.width || window.innerHeight !== p.height) {
+      p.resizeCanvas(window.innerWidth, window.innerHeight)
+      setupSize(p.width, p.height)
+      setupUI()
+    }
+  }
 
   function setupSize(w: number, h: number) {
     if (nSteps === 0 || nTracks === 0) return
@@ -39,14 +49,15 @@ function sketch(p: p5) {
     }
   }
 
+  function setupUI() {
+    animUI = new AnimationsUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
+    notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
+  }
+
   function onBeat(time: number) {
-    for (let track = 0; track < nTracks; track++) {
-      if (store.cells[track][currentStep] == 1) {
-        // animations[track][currentStep].play(time)
-      }
-    }
     beats++
     currentStep = (beats) % nSteps
+    animUI.play(currentStep)
   }
 
   p.setup = () => {
@@ -55,14 +66,18 @@ function sketch(p: p5) {
     p.strokeWeight(2)
     Tone.Transport.bpm.value = 160
     Tone.Transport.scheduleRepeat(onBeat, "8n")
+    setupSize(p.width, p.height)
+    setupUI()
   }
   
   p.draw = () => {
-    setupSize(p.width, p.height)
+    windowObserver()
     p.background(0)
-
-    notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
+    notesUI.update(store.cells, currentStep)
     notesUI.display()
+
+    animUI.update(store.cells, currentStep)
+    animUI.display()
   }
 
   p.mousePressed = () => {
@@ -71,10 +86,6 @@ function sketch(p: p5) {
     if (x !== -1 || y !== -1) {
       store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
     }
-  }
-
-  p.windowResized = () => {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
   }
 }
 
@@ -89,15 +100,20 @@ function resumeContext () {
 function defineReceiver() {
   sock.on('update', (data) => {
     console.log('[update]', data.notes)
-    store.cells = data.notes
-    nTracks = data.notes.length
-    nSteps = data.notes[0].length
+    initializeStore(data)
   })
 }
 
-function defineSketch(socket: Sock) {
+function initializeStore(data: { notes: number[][] }) {
+  store.cells = data.notes
+  nTracks = data.notes.length
+  nSteps = data.notes[0].length
+}
+
+function defineSketch(socket: Sock, initData: { notes: number[][] }) {
   sock = socket
   defineReceiver()
+  initializeStore(initData)
   return sketch
 }
 

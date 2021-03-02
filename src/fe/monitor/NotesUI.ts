@@ -1,24 +1,11 @@
 import p5 from 'p5'
+import Grid from './Grid'
 
-class NotesUI {
-  p: p5
-  cells: number[][]
-  column: number
-  row: number
-  ox: number
-  oy: number
-  cellSize: number
+class NotesUI extends Grid {
   currentStep: number
 
   constructor(p: p5, cells: number[][], ox: number, oy: number, cellSize: number, currentStep: number) {
-    this.p = p
-    this.cells = cells
-    this.column = cells===undefined ? 0 : cells.length
-    this.row = cells===undefined ? 0 : cells[0].length
-    this.ox = ox
-    this.oy = oy
-    this.cellSize = cellSize
-    this.currentStep = currentStep
+    super(p, cells, ox, oy, cellSize, currentStep)
   }
 
   onClick(mouseX: number, mouseY: number): [x: number, y: number] {
@@ -33,7 +20,9 @@ class NotesUI {
     }
   }
 
-  drawCell(x: number, y: number) {
+  updateCell(x: number, y: number) {}
+
+  displayCell(x: number, y: number) {
     // currentStep
     if (x === this.currentStep) {
       const color = this.cells[y][x] ? this.p.color(255, 100) : this.p.color(255, 10)
@@ -48,20 +37,6 @@ class NotesUI {
     this.p.stroke(255)
     this.p.fill(color)
     this.p.rect(0, 0, rectSize, rectSize)
-  }
-
-  display() {
-    this.p.push()
-    this.p.translate(this.ox, this.oy)
-    for (let y = 0; y < this.column; y++) {
-      for (let x = 0; x < this.row; x++) {
-        this.p.push()
-        this.p.translate(this.cellSize * x, this.cellSize * y)
-        this.drawCell(x, y)
-        this.p.pop()
-      }
-    }
-    this.p.pop()
   }
 }
 
