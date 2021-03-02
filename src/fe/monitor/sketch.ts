@@ -81,10 +81,6 @@ function sketch(p: p5) {
 
   p.mousePressed = () => {
     resumeContext()
-    const [x, y] = notesUI.onClick(p.mouseX, p.mouseY)
-    if (x !== -1 || y !== -1) {
-      store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
-    }
   }
 }
 
