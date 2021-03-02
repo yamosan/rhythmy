@@ -9,11 +9,11 @@ import Wave from './Wave'
 export { default as Animation } from './Animation'
 
 export const Animations = [
-  TriRect,
-  Bubble,
-  Fireworks,
-  Ripple,
   RotRect,
-  RotTriangle,
   Wave,
+  Bubble,
+  Ripple,
+  Fireworks,
+  RotTriangle,
+  TriRect
 ]

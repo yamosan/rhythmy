@@ -1,4 +1,5 @@
 import p5 from 'p5'
+import sound from 'sounds/d.mp3'
 import Animation from './Animation'
 
 class Bubble extends Animation{
@@ -6,7 +7,7 @@ class Bubble extends Animation{
   balls: p5.Vector[]
 
   constructor(p: p5, x: number, y: number) {
-    super(p, x, y)
+    super(p, x, y, sound)
     this.ballNum = 14
     this.balls = this.initializeBalls()
   }

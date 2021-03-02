@@ -1,9 +1,10 @@
 import p5 from 'p5'
+import sound from 'sounds/g.mp3'
 import Animation from './Animation'
 
 class Fireworks extends Animation{
   constructor(p: p5, x: number, y: number) {
-    super(p, x, y)
+    super(p, x, y, sound)
   }
 
   updateHook() {

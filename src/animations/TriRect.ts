@@ -1,9 +1,10 @@
 import p5 from 'p5'
+import sound from 'sounds/b.mp3'
 import Animation from './Animation'
 
 class TriRect extends Animation{
   constructor(p: p5, x: number, y: number) {
-    super(p, x, y)
+    super(p, x, y, sound)
   }
 
   updateHook() {

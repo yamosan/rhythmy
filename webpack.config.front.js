@@ -23,6 +23,13 @@ module.exports = {
           configFile: "tsconfig.front.json",
         }
       },
+      {
+        loader: 'file-loader',
+        test: /\.mp3$/,
+        options: {
+          outputPath: '../sounds',
+        }
+      },
     ],
   },
   devtool: 'inline-source-map',

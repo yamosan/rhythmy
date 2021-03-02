@@ -31,10 +31,10 @@ class AnimationsUI extends Grid {
     this.animations[y][x].display()
   }
 
-  play(currentStep: number) {
+  play(currentStep: number, time?: number) {
     for (let track = 0; track < this.column; track++){
       if (this.cells[track][currentStep]) {
-        this.animations[track][currentStep].play()
+        this.animations[track][currentStep].play(time)
       }
     }
   }
