@@ -86,6 +86,7 @@ function sketch(p: p5) {
     const [x, y] = notesUI.onClick(p.mouseX, p.mouseY)
     if (x !== -1 || y !== -1) {
       store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
+      sock.emit('update', { track: store.cells[0] })
     }
   }
 }

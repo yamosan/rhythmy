@@ -1,4 +1,5 @@
 import { Namespace, Server, Socket } from 'socket.io'
+import { disconnect } from 'tone'
 import { data } from '../@types/data'
 
 type Nsp = TypedEmitter<Namespace, EventsRecord.PlayerEventsFromClient, EventsRecord.PlayerEventsFromServer>
@@ -10,6 +11,7 @@ const playerHandler = (io: Server, models: data) => {
     console.log(`player[${sock.id}] connected`)
     setup(sock, models)
     updateHandler(sock, models)
+    disconnectHandler(sock, models)
   })
 }
 
@@ -38,8 +40,18 @@ function updateHandler(sock: Sock, models: data) {
       console.log(err)
     }
   })
+}
+
+function disconnectHandler(sock: Sock, models: data) {
+  const { players, notes } = models
   sock.on('disconnect', () => {
     console.log(`player[${sock.id}] disconnected`)
+    try {
+      const id = players.deletePlayer(sock.id).id
+      notes.resetTrack(id)
+    } catch(err) {
+      console.log(err)
+    }
   })
 }
 
