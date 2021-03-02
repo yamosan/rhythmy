@@ -10,7 +10,7 @@ const playerHandler = (io: Server, data: data) => {
   nsp.on('connection', (sock: Sock) => {
     console.log(`player[${sock.id}] connected`)
 
-    sock.on('update', (data: {track: number[]}) => {
+    sock.on('update', (data: {track: binary[]}) => {
       try {
         const id = players.findPlayer(sock.id).id
         notes.replaceTrack(id, data.track)

@@ -1,8 +1,8 @@
 declare namespace EventsRecord {
   // server -> client
   interface MonitorEventsFromServer {
-    start: (initialData: { notes: number[][] }) => void
-    update: (data: { notes: number[][] }) => void
+    start: (initialData: { notes: binary[][] }) => void
+    update: (data: { notes: binary[][] }) => void
   }
 
   // client -> server
@@ -17,6 +17,6 @@ declare namespace EventsRecord {
 
   // client -> server
   interface PlayerEventsFromClient {
-    update: (data: { track: number[] }) => void
+    update: (data: { track: binary[] }) => void
   }
 }

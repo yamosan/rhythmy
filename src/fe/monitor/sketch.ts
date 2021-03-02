@@ -6,7 +6,7 @@ import AnimationsUI from './AnimationsUI'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
-  cells: number[][]
+  cells: binary[][]
 }
 
 let sock: Sock
@@ -105,13 +105,13 @@ function defineReceiver() {
   })
 }
 
-function initializeStore(data: { notes: number[][] }) {
+function initializeStore(data: { notes: binary[][] }) {
   store.cells = data.notes
   nTracks = data.notes.length
   nSteps = data.notes[0].length
 }
 
-function defineSketch(socket: Sock, initData: { notes: number[][] }) {
+function defineSketch(socket: Sock, initData: { notes: binary[][] }) {
   sock = socket
   defineReceiver()
   initializeStore(initData)
