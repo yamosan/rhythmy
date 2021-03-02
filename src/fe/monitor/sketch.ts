@@ -57,7 +57,7 @@ function sketch(p: p5) {
   function onBeat(time: number) {
     beats++
     currentStep = (beats) % nSteps
-    animUI.play(currentStep)
+    animUI.play(currentStep, time)
   }
 
   p.setup = () => {
@@ -89,12 +89,13 @@ function sketch(p: p5) {
   }
 }
 
-function resumeContext () {
+function resumeContext() {
   // https://github.com/Tonejs/Tone.js/issues/341
   if (Tone.context.state !== 'running') {
-    Tone.context.resume()
+    Tone.context.resume().then(() => {
+      Tone.Transport.start()
+    })
   }
-  Tone.Transport.start()
 }
 
 function defineReceiver() {
