@@ -1,23 +1,24 @@
 import p5 from 'p5'
 import Grid from './Grid'
-import { Animations, Animation } from 'animations'
+import { Animation } from 'animations'
 
 class AnimationsUI extends Grid {
   currentStep: number
-  animations: Animation[]
+  animationList: Animation[]
+  animations: Animation[][]
 
-  constructor(p: p5, cells: binary[][], ox: number, oy: number, cellSize: number, currentStep: number) {
+  constructor(p: p5, cells: binary[][], ox: number, oy: number, cellSize: number, currentStep: number, animationList: Animation[]) {
     super(p, cells, ox, oy, cellSize, currentStep)
+    this.animationList = animationList
     this.animations = []
     this.setupAnimations()
   }
 
   setupAnimations() {
-    this.animations = []
     for (let y = 0; y < this.column; y++) {
       this.animations.push([])
       for (let x = 0; x < this.row; x++) {
-        const anime = new Animations[y](this.p, this.cellSize * (1 / 2), this.cellSize * (1 / 2)) // 描画位置はGridで計算されるから(0,0)の位置でOK
+        const anime = new this.animationList[y](this.p, this.cellSize * (1 / 2), this.cellSize * (1 / 2)) // 描画位置はGridで計算されるから(0,0)の位置でOK
         this.animations[y].push(anime)
       }
     }

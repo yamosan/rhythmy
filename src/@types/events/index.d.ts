@@ -12,7 +12,7 @@ declare namespace EventsRecord {
 
   // server -> client
   interface PlayerEventsFromServer {
-    
+    start: (initialData: { notes: binary[], id: number }) => void
   }
 
   // client -> server

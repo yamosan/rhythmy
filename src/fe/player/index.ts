@@ -1,7 +1,10 @@
 import p5 from 'p5'
 import sketch from './sketch'
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 
-const sock = io('/player')
+type Sock = TypedEmitter<Socket, EventsRecord.PlayerEventsFromServer, EventsRecord.PlayerEventsFromClient>
+const sock: Sock = io('/player')
 
-new p5(sketch)
+sock.on('start', (initData) => {
+  new p5(sketch(sock, initData))
+})

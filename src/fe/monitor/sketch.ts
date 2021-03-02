@@ -1,8 +1,9 @@
 import p5 from 'p5'
 import * as Tone from 'tone'
 import { Socket } from 'socket.io-client'
-import NotesUI from './NotesUI'
-import AnimationsUI from './AnimationsUI'
+import NotesUI from '../NotesUI'
+import AnimationsUI from '../AnimationsUI'
+import animations from '../animations'
 
 type Sock = TypedEmitter<Socket, EventsRecord.MonitorEventsFromServer, EventsRecord.MonitorEventsFromClient>
 type Store = {
@@ -50,7 +51,7 @@ function sketch(p: p5) {
   }
 
   function setupUI() {
-    animUI = new AnimationsUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
+    animUI = new AnimationsUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep, animations)
     notesUI = new NotesUI(p, store.cells, leftMargin, topMargin, cellSize, currentStep)
   }
 
@@ -80,10 +81,6 @@ function sketch(p: p5) {
 
   p.mousePressed = () => {
     resumeContext()
-    const [x, y] = notesUI.onClick(p.mouseX, p.mouseY)
-    if (x !== -1 || y !== -1) {
-      store.cells[y][x] = store.cells[y][x] === 0 ? 1 : 0
-    }
   }
 }
 
