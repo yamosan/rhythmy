@@ -62,8 +62,6 @@ function sketch(p: p5) {
 
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight)
-    p.colorMode(p.HSB, 255)
-    p.strokeWeight(2)
     Tone.Transport.bpm.value = 160
     Tone.Transport.scheduleRepeat(onBeat, "8n")
     setupSize(p.width, p.height)

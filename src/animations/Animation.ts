@@ -43,6 +43,7 @@ abstract class Animation {
     this.p.push()
     if (this.alive) {
       this.p.colorMode(this.p.HSB, 255)
+      this.p.strokeWeight(2)
       this.displayHook()
     }
     this.p.pop()
