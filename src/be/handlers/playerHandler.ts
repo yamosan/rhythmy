@@ -1,5 +1,4 @@
 import { Namespace, Server, Socket } from 'socket.io'
-import { disconnect } from 'tone'
 import { data } from '../@types/data'
 
 type Nsp = TypedEmitter<Namespace, EventsRecord.PlayerEventsFromClient, EventsRecord.PlayerEventsFromServer>
