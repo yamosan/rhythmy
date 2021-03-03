@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "fe-build": "webpack --config webpack.config.front.js --mode production",
-    "fe-dev": "webpack --watch --config webpack.config.front.js --mode development",
+    "fe-build": "webpack --config webpack.config.prod.js",
+    "fe-dev": "webpack --watch --config webpack.config.dev.js",
     "start": "ts-node --project tsconfig.back.json --files app.ts"
   },
   "keywords": [],
