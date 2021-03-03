@@ -1,6 +1,3 @@
-# rhythm
-
-
 ## Demo
 
 ![demo](./demo.gif)
