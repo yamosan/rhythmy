@@ -6,7 +6,8 @@
   "scripts": {
     "fe-build": "webpack --config webpack.config.prod.js",
     "fe-dev": "webpack --watch --config webpack.config.dev.js",
-    "start": "ts-node --project tsconfig.back.json --files app.ts"
+    "start": "ts-node --project tsconfig.back.json --files app.ts",
+    "heroku-prebuild": "npm run fe-build"
   },
   "keywords": [],
   "author": "",
