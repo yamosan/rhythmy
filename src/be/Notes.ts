@@ -11,7 +11,7 @@ export class Notes {
     this.observer = () => { }
   }
 
-  replaceTrack(id: number, track: binary[]): binary[][] | never {
+  replaceTrack(id: number, track: binary[]): binary[][] {
     this.validateId(id)
     this.validateTrack(track)
     this.data[id] = track
@@ -20,7 +20,7 @@ export class Notes {
     return this.data
   }
 
-  resetTrack(id: number): binary[][] | never {
+  resetTrack(id: number): binary[][] {
     this.validateId(id)
     this.data[id] = new Array(this.nSteps).fill(0)
 
@@ -44,11 +44,11 @@ export class Notes {
   }
 
   // TODO: デコレータ化する
-  private validateId(id: number): never | void {
+  private validateId(id: number): void {
     if (!(0 <= id && id < this.nTracks)) throw new Error(`id must be between 0 and ${this.nTracks-1}`)
   }
 
-  private validateTrack(track: any[]): never | void {
+  private validateTrack(track: any[]): void {
     if (!(track.length === this.nSteps)) throw new Error(`track is invalid`)
     track.forEach(step => {
       if (!(step === 0 || step === 1)) throw new Error(`track is invalid`)

@@ -34,7 +34,7 @@ export class Players {
     return true
   }
 
-  findPlayer(socketId: string): Player | never {
+  findPlayer(socketId: string): Player {
     const result = this.data.find(p => p.socketId === socketId)
     if (result) {
       return { ...result }
@@ -43,7 +43,7 @@ export class Players {
     }
   }
 
-  deletePlayer(socketId: string): Player | never {
+  deletePlayer(socketId: string): Player {
     const player = this.findPlayer(socketId)
     const newData = this.data.filter(p => p.socketId !== socketId)
     this.data = newData
