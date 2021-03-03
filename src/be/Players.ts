@@ -6,7 +6,7 @@ export class Player {
 }
 
 export class Players {
-  readonly data: Player[]
+  data: Player[]
   readonly limit: number
   randomChoice: boolean
 
@@ -45,7 +45,8 @@ export class Players {
 
   deletePlayer(socketId: string): Player | never {
     const player = this.findPlayer(socketId)
-    this.data.filter(p => p.socketId !== socketId)
+    const newData = this.data.filter(p => p.socketId !== socketId)
+    this.data = newData
     return { ...player }
   }
 
