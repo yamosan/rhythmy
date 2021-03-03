@@ -1,1 +1,1 @@
-web: npm fe-build && npm start
+web: npm run fe-build && npm start
