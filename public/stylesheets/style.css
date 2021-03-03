@@ -3,6 +3,8 @@
     padding: 0;
 }
 
+/* FIXME: ios版chromeで画面縦向き->横向きにすると余白ができてしまう。とりあえずbodyのbgcも同色にして誤魔化す */
 body {
-    overflow: hidden
+    overflow: hidden;
+    background-color:black; 
 }
