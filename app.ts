@@ -7,6 +7,8 @@ import { Notes } from './src/be/Notes'
 import { Players } from './src/be/Players'
 import seed from './src/be/seed'
 
+const PORT = process.env.PORT || 3000
+
 const app = express()
 const http = createServer(app)
 const io = new Server(http)
@@ -34,4 +36,4 @@ seed(data)
 monitorHandler(io, data)
 playerHandler(io, data)
 
-http.listen(3000)
+http.listen(PORT)
