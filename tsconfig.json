@@ -1,12 +1,8 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src"
+    "lib": ["es2021", "DOM"],
+    "baseUrl": "./src",
+    "outDir": "./dist"
   }
 }
-  
